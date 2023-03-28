@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .forms import SearchForm, TestForm
 
 # Create your views here.
 
@@ -9,10 +10,13 @@ def index(request):
 
 
 def app_index(request):
-    return HttpResponse("Hello from my first app!")
+    favorite_book = {'Raymond': "The Kite Runner", 'Emma': "A Thousand Splendid Suns",
+                     'Denise': "The Great Gatsby", 'Austin': "Holly Lover"}
+    return render(request, 'first_app/index.html', context=favorite_book)
+    # return HttpResponse("Hello from my first app!")
 
 
-def app_home(request):
+def home(request):
     return HttpResponse("Welcome to the home page of my first app!")
 
 
@@ -26,3 +30,23 @@ def odd_or_even(request, num):
     else:
         result = "odd"
     return HttpResponse(f"{num} is an {result} number!")
+
+
+def forms(request):
+    form = SearchForm()
+    return render(request, 'first_app/form.html', {'form': form})
+
+
+def test_forms(request):
+    test_form = TestForm()
+    return render(request, "first_app/form.html", {'form': test_form})
+
+
+def handle_forms(request):
+    form = TestForm(request.POST or None)
+    data = "None"
+    text = None
+    if form.is_valid():
+        data = form.cleaned_data
+        text = form.cleaned_data.get("text")
+    return render(request, 'first_app/form.html', {'form': form, 'data': data, 'text': text})

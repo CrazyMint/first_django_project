@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date as dt
 
 # Create your models here.
 
@@ -21,7 +22,8 @@ class Webpage(models.Model):
 
 class AccessRecord(models.Model):
     name = models.ForeignKey(Webpage, on_delete=models.CASCADE)
-    date = models.DateField
+    date = models.DateField(default=dt.today)
+    count = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.date)

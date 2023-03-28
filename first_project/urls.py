@@ -21,9 +21,9 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', views.index, name='index'),
-    path('<int:num>/', views.odd_or_even, name='odd_or_even'),
+    path('firstapp/', include('first_app.urls'))
+    # path('<int:num>/', views.odd_or_even, name='odd_or_even'),
     # path('', RedirectView.as_view(url='hello/')),
-    path('firstapp/', include('first_app.urls')),
-    path('', RedirectView.as_view(url='firstapp/', permanent=True)),
+    # path('', RedirectView.as_view(url='firstapp/', permanent=True)),
     # path('<age>/', views.show_age, name='show_age'),
 ]
